@@ -55,8 +55,8 @@ int main() {
 		printf("Size of dungeon %d \n", game_size);
 
 		//generate randome starting postion in dungeon (range between 0 and gamesize)
-		int x_cord = rand()%game_size;
-		int	y_cord = rand()%game_size;
+		int x_cord = rand() % game_size;
+		int	y_cord = rand() % game_size;
 
 		printf("Enter number of lives (5 is default 100 max)\n");
 		player_life = player_choice(100);
@@ -70,15 +70,15 @@ int main() {
 		game[x_cord][y_cord].hasVisted = 1;
 		clear_screen();
 
-    int rand_num = (rand() % 11) + 1; 
-    int temp_damage;
+		int rand_num = (rand() % 11) + 1;
+		int temp_damage;
 		while (play_again == 1) {
 			display_title();
 			printf("Number of lives %d \n", player_life);
 			print_game(game, game_size, debug_mode);
 			player_move(game, game_size);
-      temp_damage = call_event(rand_num);
-      update_life(player_life, temp_damage);
+			temp_damage = call_event(rand_num);
+			update_life(player_life, temp_damage);
 			clear_screen();
 
 		}
