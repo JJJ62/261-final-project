@@ -743,35 +743,39 @@ int display_choices(Node* temp_node){
   int flag;
   do{
     printf("your choice: ");
-    scanf("%s\n", &(**user_choice));
-
-  if (temp_node->encounter_num == 5 || temp_node->encounter_num == 9 || temp_node->encounter_num == 10){
-      for(int i; i < 3;i++){
-        if(strcmp(*user_choice, temp_node->keywords[i]) != 0){
-          printf("Please choose one of the specified options.\n");
-          flag = 1;
-      }else{
-        break;
-        }
-      }
-      }else if (temp_node->encounter_num == 8){
-        if(strcmp(*user_choice, temp_node->keywords[0]) != 0){
-          printf("Please choose one of the specified options.\n");
-          flag = 1;
-        }else{
-          break;
-          }
-      }else{
-        for(int i; i < 2;i++){
+    printf("\n\n Reached start \n\n");
+    scanf("%s\n", (*user_choice));
+    printf("\n\n Reached start2 \n\n");
+    if (temp_node->encounter_num == 5 || temp_node->encounter_num == 9 || temp_node->encounter_num == 10){
+        for(int i = 0; i < 3;i++){
           if(strcmp(*user_choice, temp_node->keywords[i]) != 0){
             printf("Please choose one of the specified options.\n");
             flag = 1;
+        }else{
+          flag = 0;
+          break;
+          }
+        }
+        }else if (temp_node->encounter_num == 8){
+          if(strcmp(*user_choice, temp_node->keywords[0]) != 0){
+            printf("Please choose one of the specified options.\n");
+            flag = 1;
           }else{
+            flag = 0;
             break;
             }
+        }else{
+          for(int i; i < 2;i++){
+            if(strcmp(*user_choice, temp_node->keywords[i]) != 0){
+              printf("Please choose one of the specified options.\n");
+              flag = 1;
+            }else{
+              flag = 0;
+              break;
+              }
+          }
         }
-      }
-  }while(1 == 2);
+    }while(flag == 1);
   temp_node->correct_keywords = user_choice; //using correct_keyword to store user choice
   return 0;
 }
