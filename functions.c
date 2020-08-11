@@ -16,6 +16,7 @@
 #include <time.h>/* time() */
 #include "functions.h"
 
+#define MAX_CHAR 500
 
 // Struct refrence
 //struct encounter
@@ -362,7 +363,7 @@ Node* event_1() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Fight","Sneak"};
+    char* correct_keword_temp[10]= { "Fight", "Sneak"};
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -383,7 +384,7 @@ Node* event_2() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Drink","Move on"};
+    char* correct_keword_temp[12] = { "Drink","Move on"};
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -404,7 +405,7 @@ Node* event_3() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Fight","Sneak"};
+    char* correct_keword_temp[10] = { "Fight","Sneak"};
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -425,7 +426,7 @@ Node* event_4() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Drink", "Ignore"};
+    char* correct_keword_temp[11] = { "Drink", "Ignore"};
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -446,7 +447,7 @@ Node* event_5() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Wait", "Run", "Fight" };
+    char* correct_keword_temp[12] = { "Wait", "Run", "Fight" };
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -467,7 +468,7 @@ Node* event_6() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Accept", "Refuse" };
+    char* correct_keword_temp[12] = { "Accept", "Refuse" };
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -488,7 +489,7 @@ Node* event_7() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Watch", "Ignore" };
+    char* correct_keword_temp[11] = { "Watch", "Ignore" };
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -509,7 +510,7 @@ Node* event_8() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Jump Over" };
+    char* correct_keword_temp[9] = { "Jump Over" };
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -530,7 +531,7 @@ Node* event_9() {
     //temp->keywords = keword_temp;
 
     //words that complete even
-    char* correct_keword_temp[20] = { "Strike","Run","Dodge" };
+    char* correct_keword_temp[14] = { "Strike","Run","Dodge" };
     temp->keywords = correct_keword_temp;
 
     return temp;
@@ -562,20 +563,28 @@ int return_int(int num){
 }
 
 int call_event(int rand_num){
+  int tempint = 0;
   int temp = rand_num;
+  // printf("Random number %d\n", temp);
+  // int temp =1;
   Node* temp_node;
   temp_node = (Node*)malloc(sizeof(Node));
   temp_node->next = NULL;
   temp_node->encounter_num = 0;
-  temp_node->correct_keywords = (char**)malloc(sizeof(char*)*24);;
-  temp_node->keywords = (char**)malloc(sizeof(char*)*24);
+  temp_node->correct_keywords = (char**)malloc(sizeof(char*)*20);;
+  temp_node->keywords = (char**)malloc(sizeof(char*)*20);
   temp_node->encounter_text = (char*)malloc(sizeof(char)*200);
   srand(time(NULL));
   switch(temp){
     case 1:
       temp_node = event_1();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Fight") == 0){
+      printf("TESTING EVENT 1\n");
+      tempint = display_choices(temp_node);
+      char* tempbuff = temp_node->keywords[tempint];
+      printf("KEY WORD is %s\n", tempbuff);
+      char* tempbuff2 = temp_node->keywords[0];
+      // printf("KEY WORD is %s\n", tempbuff2);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("You begin fighting the goblin striking him with your fists as you start getting complacent against the weaker goblin he manages to land a hit on you. You angrily kick the goblin knocking him out. (1 damage)\n");
         return -1;
       }else{
@@ -591,8 +600,8 @@ int call_event(int rand_num){
       }
     case 2:
       temp_node = event_2();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Drink") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("You walk up to the table looking closely at the large vial on it. You hear it bubling as you notice it fizz adn change color, your curiosity gets the better of you as you grab the vial tkaing off it's cap and down it in one go \n");
         int x = rand() % 2;
         if(x == 0){
@@ -603,10 +612,13 @@ int call_event(int rand_num){
           return -6;
         }
       }
+      else {
+        printf("OPTION 2 for case 2\n");
+      }
     case 3:
       temp_node = event_3();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Fight") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("You pull out the small dagger you keep in your back pocket and cautiously approach the slimes. As you get closer the slimes don't react, taking advantage of the situation you plunge your dagger into the slime causing it to splatter everywhere. The slime burns your skin searing your skin as your realize the slime is just some toxic substance. Not everything is a monster. (2 damage)\n");
         return -2;
       }else{
@@ -616,8 +628,8 @@ int call_event(int rand_num){
 
     case 4:
       temp_node = event_4();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Drink") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         int x = rand() % 2;
         if(x == 0){
           printf("You lean down collecting water from the fountain in your hand and slowly bring your hands to your mouth drinking unsure to what it will lead to. Despite your fears you suddenly start feeling rejuvinated and fresh, so energized you could take on an army. (100 healing)\n");
@@ -633,11 +645,11 @@ int call_event(int rand_num){
       }
     case 5:
       temp_node = event_5();
-      display_choices(temp_node);
+      tempint = display_choices(temp_node);
       int y = rand()%2;
-      if(strcmp(temp_node->correct_keywords[0], "Fight") == 0){
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("You look at the goblin for a few moments impressed by his sense of fashion before you realize the clear possibilty of danger from him and decide to lunge at him before he can do anything. He simply steps to the side and you feel a sharp pain on your back. You turn to look at him but the goblin as well as the wheel are nowhere to be seen\n");
-      }else if(strcmp(temp_node->correct_keywords[0], "Run") == 0){
+      }else if(strcmp(temp_node->keywords[1], temp_node->keywords[tempint]) == 0){
         printf("Not wanting to wait and see what the wheel or that goblin have in store for you you run towards the exit of the room. Running you can hear the sound of the whell spinning behind you, almost at the exit of the room you turn to look back but end up tripping. when you look at where you came from neither the goblin or his wheel are anywhere to be found\n. (2 damage)");
         return -2;
       }else{
@@ -652,8 +664,8 @@ int call_event(int rand_num){
       }
     case 6:
       temp_node = event_6();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Accept") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("You take a seat beside him as he offers you a mug filled with beer and gestures to the pot offering you food. You thank him enjoying the beer and food soon you find yourself getting tired and pass out. You wake up slightly hungover but in a better. (10 healing)\n");
         return 10;
       }else{
@@ -662,8 +674,8 @@ int call_event(int rand_num){
       }
     case 7:
       temp_node = event_7();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Watch") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("you think about it and then decide to watch their duel. Their swords clash violently the sound of metal hitting metal filling the room soon one of them makes a mistake only to find themselves impaled on the others blade. The victor first gives a bow to his fallen opponet before tossig you a potion saying 'for your trouble' and continuing on his way. (6 healing)\n");
         return 6;
       }else{
@@ -672,19 +684,19 @@ int call_event(int rand_num){
       }
     case 8:
       temp_node = event_8();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Jump Over") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("seeing no way ahead without crossing the gap you stand on the edge building up the courage to jump across what looks like a bottomless pit. You step back running towards the split jumping at the last moment. You manage to jump the gap easily landing clean on the other side.");
         return 0;
       }
     case 9:
       temp_node = event_9();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Strike") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("without much time to think you decide to strike the boulder with all your might. The boulder breaks as you strike it but leaves your arm feeling number and sore while your hand bleeds (16 damage)");
         return -16;
       }
-      else if(strcmp(temp_node->correct_keywords[0], "Run") == 0){
+      else if(strcmp(temp_node->keywords[1], temp_node->keywords[tempint]) == 0){
         int o = rand() % 2;
         printf("Without thinking you start running away from the boulder. ");
         if (o == 0){
@@ -705,11 +717,11 @@ int call_event(int rand_num){
       }
     case 10:
       temp_node = event_10();
-      display_choices(temp_node);
-      if(strcmp(temp_node->correct_keywords[0], "Minoutar") == 0){
+      tempint = display_choices(temp_node);
+      if(strcmp(temp_node->keywords[0], temp_node->keywords[tempint]) == 0){
         printf("Scenario for minotaur fight (18 damage)");
         return -18;
-      }else if(strcmp(temp_node->correct_keywords[0], "Troll") == 0){
+      }else if(strcmp(temp_node->keywords[1],temp_node->keywords[tempint]) == 0){
         printf("Scenario for troll fight (18 damage)");
         return -18;
       }else{
@@ -717,23 +729,26 @@ int call_event(int rand_num){
         return -18;
       }
   }
+  return 0;
 }
 
 int display_choices(Node* temp_node){
-  char* user_choice[20];
+  // char* user_choice[20];
+
   printf("%s\n",temp_node->encounter_text);
   printf("What will you do? \n");
   int i = 0;
 
   //gives seg fault
+  // printf("%s\n", temp_node->keywords[1]);
   if (temp_node->encounter_num == 5 || temp_node->encounter_num == 9 || temp_node->encounter_num == 10){
-    for(int i; i < 3;i++){
+    for(int i = 0; i < 3;i++){
       printf("%s\n",temp_node->keywords[i]);
     }
     }else if (temp_node->encounter_num == 8){
       printf("%s\n", temp_node->keywords[0]);
     }else{
-    for(int i; i < 2;i++){
+    for(int i=0; i < 2;i++){
       printf("%s\n",temp_node->keywords[i]);
     }
   }
@@ -743,41 +758,51 @@ int display_choices(Node* temp_node){
   int flag;
   do{
     printf("your choice: ");
-    printf("\n\n Reached start \n\n");
-    scanf("%s\n", (*user_choice));
-    printf("\n\n Reached start2 \n\n");
-    if (temp_node->encounter_num == 5 || temp_node->encounter_num == 9 || temp_node->encounter_num == 10){
-        for(int i = 0; i < 3;i++){
-          if(strcmp(*user_choice, temp_node->keywords[i]) != 0){
-            printf("Please choose one of the specified options.\n");
-            flag = 1;
+    char buff[256];
+    fgets(buff, 255,stdin);
+    // printf("User Entered %s", buff);
+  //   char* buff;
+  //   scanf("%s\n", &(**user_choice));
+  char* usertemp;
+  usertemp = strtok(buff, "\n");
+  // printf("TESTING \n");
+  if (temp_node->encounter_num == 5 || temp_node->encounter_num == 9 || temp_node->encounter_num == 10){
+      for(int i =0; i < 3;i++){
+        char* tempbuff2 = temp_node->keywords[i];
+        if(strcmp(strtok(buff, "\n"), temp_node->keywords[i]) != 0){
+          printf("Please choose one of the specified options.\n");
+          flag = 1;
+      }else{
+        return i;
+        break;
+        }
+      }
+      }else if (temp_node->encounter_num == 8){
+        char* tempbuff2 = temp_node->keywords[i];
+        if(strcmp(strtok(buff, "\n"), temp_node->keywords[0]) != 0){
+          printf("Please choose one of the specified options.\n");
+          flag = 1;
         }else{
-          flag = 0;
+            return i;
           break;
           }
-        }
-        }else if (temp_node->encounter_num == 8){
-          if(strcmp(*user_choice, temp_node->keywords[0]) != 0){
+      }else{
+        for(int i = 0; i < 2;i++){
+            // printf("TESTING Check 23\n");
+          // char* tempbuff2 = temp_node->keywords[i];
+          if(strcmp(strtok(buff, "\n"), temp_node->keywords[i]) != 0){
             printf("Please choose one of the specified options.\n");
             flag = 1;
           }else{
-            flag = 0;
-            break;
+            printf("Matching word %d\n", i);
+            return i;
+            // break;
             }
-        }else{
-          for(int i; i < 2;i++){
-            if(strcmp(*user_choice, temp_node->keywords[i]) != 0){
-              printf("Please choose one of the specified options.\n");
-              flag = 1;
-            }else{
-              flag = 0;
-              break;
-              }
-          }
         }
-    }while(flag == 1);
-  temp_node->correct_keywords = user_choice; //using correct_keyword to store user choice
-  return 0;
+      }
+  }while(flag == 1);
+  // temp_node->correct_keywords = user_choice; //using correct_keyword to store user choice
+  // return 0;
 }
 
 int update_life(int player_life, int amount){
