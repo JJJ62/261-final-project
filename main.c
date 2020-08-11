@@ -70,21 +70,55 @@ int main() {
 		game[x_cord][y_cord].hasVisted = 1;
 		clear_screen();
 
-		int rand_num = (rand() % 11) + 1;
 		int temp_damage;
+
+//setting the target room not equal to the player starting position
+		int x_win = 0;
+		int y_win = 0;
+
+		do {
+			x_win = rand() % game_size;
+			y_win = rand() % game_size;
+
+		} while ((x_win == x_cord) && (y_win == y_cord));
+
+
 		while (play_again == 1) {
+			int rand_num = (rand() % 11) + 1;
 			display_title();
 			printf("Number of lives %d \n", player_life);
 			print_game(game, game_size, debug_mode);
 			player_move(game, game_size);
 			temp_damage = call_event(rand_num);
-			update_life(player_life, temp_damage);
+			player_life = update_life(player_life, temp_damage);
+
+			if (player_life <= 0) {
+				printf("Not enough lives. Player died...");
+				break;
+			}
+
+			if (game[x_win][y_win].playerHere == 1) {
+				printf("Reached the room. Won the game!\n");
+				break;
+			}
 			clear_screen();
 
+
+
+		}
+		//add function to make restart possible
+		int restart = 0;
+		printf("restart? (1) yes (2) no\n");
+		scanf("%d", restart);
+		if (restart == 1)
+			continue;
+		else {
+			free_game(game, game_size);
+
+			return 0;
 		}
 
-		free_game(game, game_size);
-		//add function to make restart possible
+
 		gameloop = 0;
 	}
 }
