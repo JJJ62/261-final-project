@@ -5,8 +5,8 @@
 * Filename: functions.c
 *
 * Overview:
-*	function library for game
-*	function name and discription will be posted below
+*   function library for game
+*   function name and discription will be posted below
 ************************************************************/
 #include <assert.h>
 #include <stdlib.h>
@@ -386,6 +386,14 @@ void player_move(encounter** arr, int size, int* x_pointer, int* y_pointer) {
 // EVENTS TREEES
 // MAKE TREES HERE!
 
+/*********************************************************************
+ ** Function:         event_1
+ ** Description:      Has all the data for the first encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
+
 // Even 1 example event
 Node* event_1() {
     //temp node to be passed
@@ -417,6 +425,13 @@ Node* event_1() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_2
+ ** Description:      Has all the data for the second encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_2() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -446,6 +461,13 @@ Node* event_2() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_3
+ ** Description:      Has all the data for the third encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_3() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -472,6 +494,13 @@ Node* event_3() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_4
+ ** Description:      Has all the data for the fourth encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_4() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -497,6 +526,13 @@ Node* event_4() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_5
+ ** Description:      Has all the data for the fifth encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_5() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -522,6 +558,13 @@ Node* event_5() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_6
+ ** Description:      Has all the data for the sixth encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_6() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -547,6 +590,13 @@ Node* event_6() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_7
+ ** Description:      Has all the data for the seventh encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_7() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -572,6 +622,13 @@ Node* event_7() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_8
+ ** Description:      Has all the data for the eighth encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_8() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -597,6 +654,13 @@ Node* event_8() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_9
+ ** Description:      Has all the data for the ninth encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_9() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -622,6 +686,13 @@ Node* event_9() {
     return temp;
 }
 
+/*********************************************************************
+ ** Function:         event_10
+ ** Description:      Has all the data for the tenth encounter
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* event_10() {
     //temp node to be passed
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -652,7 +723,14 @@ int return_int(int num) {
 }
 
 
-
+/*********************************************************************
+ ** Function:         display_choice
+ ** Description:      Displays the valid options for the player for each
+                      encounter and takes input.
+ ** Parameters:       Node*
+ ** Pre-Con:          called by call_event
+ ** Post-Con:         returns the number of the option chosen by the player
+ *********************************************************************/
 int display_choices(Node* temp_node) {
     // char* user_choice[20];
 
@@ -727,6 +805,13 @@ int display_choices(Node* temp_node) {
 
 }
 
+/*********************************************************************
+ ** Function:         update_life
+ ** Description:      Updates player health according to encounter
+ ** Parameters:       int player_life, int amount
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 int update_life(int player_life, int amount) {
     return player_life + amount;
 }
@@ -762,6 +847,13 @@ int player_event(encounter** arr, int size, Node head) {
 
 }
 
+/*********************************************************************
+ ** Function:         call_event
+ ** Description:      Calls the encounters stored in event functions
+ ** Parameters:       Node* event
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 int call_event(Node* event) {
     int tempint = 0;
     int temp = event->encounter_num;
@@ -939,7 +1031,13 @@ int call_event(Node* event) {
 }
 
 
-
+/*********************************************************************
+ ** Function:         create_events
+ ** Description:      loads the events into a linked list
+ ** Parameters:       NONE
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 Node* create_events() { //stores all the nodes in a form of linked list
     Node* head = (struct Node*)malloc(sizeof(struct Node));
     Node* temp = (struct Node*)malloc(sizeof(struct Node));
@@ -960,6 +1058,13 @@ Node* create_events() { //stores all the nodes in a form of linked list
 
 }
 
+/*********************************************************************
+ ** Function:         push_event
+ ** Description:      Used by create_events to store nodes
+ ** Parameters:       Node* prev, Node* new_node
+ ** Pre-Con:          NONE
+ ** Post-Con:         NONE
+ *********************************************************************/
 void push_event(Node* prev, Node* new_node) {
 
 
