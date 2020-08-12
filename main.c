@@ -10,7 +10,7 @@
 *	The game will use a dynamic array for movement and a linked list
 *	for each new encounter
 ************************************************************/
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -67,39 +67,65 @@ int main() {
 
 		// Create game board
 		encounter** game = create_dungeon(game_size, number_of_encounters);
+		Node* head = create_events();
+
 
 		//set starting postion, declare starting position safe.
 		set_player_position(game, x_cord, y_cord, game_size);
 		game[x_cord][y_cord].hasVisted = 1;
 		clear_screen();
 
-		//int rand_num = (rand() % 11) + 1;
-		int temp_damage;
-		while (play_again == 1) {
 
-			//POSITION TRACKING DEBUG CODE
-			//printf("DEBUG X %d", x_cord);
-			//printf("DEBUG y %d", y_cord);
-			//POSITION TRACKING DEBUG CODE
+		int temp_damage;
+
+		int x_win = 0;
+		int y_win = 0;
+
+		do {
+			x_win = rand() % game_size;
+			y_win = rand() % game_size;
+
+		} while ((x_win == x_cord) && (y_win == y_cord));
+
+		while (play_again == 1) {
 
 			display_title();
 			printf("Number of lives %d \n", player_life);
 
 			print_game(game, game_size, debug_mode);
+			printf("%d, %d \n", x_win, y_win);
 			player_move(game, game_size, &x_cord, &y_cord);
 
 			//IF player has not visted current location then play event.
-			if (chk_has_visited(game,x_cord, y_cord) != 1) {
-				temp_damage = call_event(chk_enc_number(game, x_cord, y_cord)); // calls function with current position encounter number
-				update_life(player_life, temp_damage);
+			if (chk_has_visited(game, x_cord, y_cord) != 1) {
+				temp_damage = player_event(game, game_size, *head);
+				player_life = update_life(player_life, temp_damage);
 			}
 
+			if (player_life <= 0) {
+				printf("Not enough lives. Player died...");
+				break;
+			}
+
+			if (game[x_win][y_win].playerHere == 1) {
+				printf("Reached the room. Won the game!\n");
+				break;
+			}
 			clear_screen();
+
 
 		}
 
-		free_game(game, game_size);
+		int restart = 0;
+		free_game(game, game_size,head);
+		printf("restart? (1) yes (2) no\n");
+		scanf("%d", &restart);
+		if (restart == 1)
+			continue;
+		else
+			return 0;
+
 		//add function to make restart possible
-		gameloop = 0;
+
 	}
 }

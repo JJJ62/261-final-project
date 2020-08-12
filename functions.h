@@ -20,12 +20,12 @@ struct encounter
 
 struct Node
 {
-    // Any data type can be stored in this node 
+    // Any data type can be stored in this node
     char* encounter_text;
     // key words to use during even
-    char** keywords;
+    char* keywords[20];
     //the correct words to use during encounter
-    char** correct_keywords;
+    char* correct_keywords[10];
     // the encounter number
     int encounter_num;
     //pointing to next node in encounter list
@@ -34,22 +34,21 @@ struct Node
 
 
 void clear_screen();
-encounter** create_dungeon(int,int);
+encounter** create_dungeon(int);
+Node* create_events();
 void free_game(encounter**, int);
 void print_game(encounter**, int, int);
 void display_title();
 int player_choice(int x);
-void player_move(encounter** , int , int* , int* );
+void player_move(encounter**, int);
 void set_player_position(encounter**, int, int, int); //game arr, x cord, y cord, size of arr
-void player_event(encounter**, int, int*, Node);
-void play_event(Node, int, int*, int);
-int chk_has_visited(encounter** arr, int x, int y);
-int chk_enc_number(encounter** arr, int x, int y);
+int player_event(encounter**, int, Node);
+void play_event(Node, int, int);
 
 int call_event(int rand_num); //calls event
 int display_choices(Node* temp_node); // display choices for that event and takes input from user
 int update_life(int player_life, int amount); //update life after event
-
+void push_event(Node* prev, Node* new_node);
 
 //EVENTS
 Node* event_1();
