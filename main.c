@@ -1,5 +1,5 @@
 /***********************************************************
-* Author: Austin Friedrich, Benjamin Cha, Jawad Alamgir
+* Author: Austin Friedrich, Benjamin Cha, Jawad Alamgir , Tae, Soo KiM
 * Email: Friedrau@oregonstate.edu
 * Date Created:8/5/2020
 * Filename: main.c
@@ -42,6 +42,8 @@ int main() {
 		int game_size;
 		//player lifes
 		int player_life = 5;
+		//Number of encounters
+		int number_of_encounters = 10;
 
 		//COMMENT ME OUT FOR FINAL GAME*********
 		printf("debug mode (1) on (2) off?\n");
@@ -51,34 +53,47 @@ int main() {
 
 		//get size of array
 		printf("Enter Size of dungeon 4-40\n");
-		game_size = player_choice(40);
+		game_size = player_choice(40); // allows choice 1-40
 		printf("Size of dungeon %d \n", game_size);
 
 		//generate randome starting postion in dungeon (range between 0 and gamesize)
 		int x_cord = rand() % game_size;
 		int	y_cord = rand() % game_size;
 
+
 		printf("Enter number of lives (5 is default 100 max)\n");
-		player_life = player_choice(100);
+		player_life = player_choice(100); // allows for choice 1-100
 		printf("Number of lives %d \n", player_life);
 
 		// Create game board
-		encounter** game = create_dungeon(game_size);
+		encounter** game = create_dungeon(game_size, number_of_encounters);
 
 		//set starting postion, declare starting position safe.
 		set_player_position(game, x_cord, y_cord, game_size);
 		game[x_cord][y_cord].hasVisted = 1;
 		clear_screen();
 
-		int rand_num = (rand() % 11) + 1;
+		//int rand_num = (rand() % 11) + 1;
 		int temp_damage;
 		while (play_again == 1) {
+
+			//POSITION TRACKING DEBUG CODE
+			//printf("DEBUG X %d", x_cord);
+			//printf("DEBUG y %d", y_cord);
+			//POSITION TRACKING DEBUG CODE
+
 			display_title();
 			printf("Number of lives %d \n", player_life);
+
 			print_game(game, game_size, debug_mode);
-			player_move(game, game_size);
-			temp_damage = call_event(rand_num);
-			update_life(player_life, temp_damage);
+			player_move(game, game_size, &x_cord, &y_cord);
+
+			//IF player has not visted current location then play event.
+			if (chk_has_visited(game,x_cord, y_cord) != 1) {
+				temp_damage = call_event(chk_enc_number(game, x_cord, y_cord)); // calls function with current position encounter number
+				update_life(player_life, temp_damage);
+			}
+
 			clear_screen();
 
 		}

@@ -1,5 +1,5 @@
 /***********************************************************
-* Author: Austin Friedrich, Benjamin Cha, Jawad Alamgir
+* Author: Austin Friedrich, Benjamin Cha, Jawad Alamgir , Tae, Soo KiM
 * Email: Friedrau@oregonstate.edu
 * Date Created:8/5/2020
 * Filename: functions.c
@@ -54,13 +54,13 @@ void clear_screen() {
 /*********************************************************************
  ** Function:         create_dungeon
  ** Description:      Created dungeon and sets the events of each tile
- ** Parameters:       takes in an int and creates dungeon of X size
+ ** Parameters:       takes in an int and creates dungeon of X size, then then number of encounters
  ** Pre-Con:          NONE
  ** Post-Con:         NONE
  *********************************************************************/
 
 
-encounter** create_dungeon(int x) {
+encounter** create_dungeon(int x,int number_of_encounters) {
     srand(time(0));
 
     encounter** arr = (encounter**)malloc(sizeof(encounter*) * x);
@@ -78,7 +78,7 @@ encounter** create_dungeon(int x) {
 
         // printf("%d \n ", count);
 
-         arr[i][j].enc = count;
+         arr[i][j].enc = rand() % number_of_encounters+1;
          arr[i][j].hasVisted = 0;
          arr[i][j].playerHere = 0;
      }
@@ -146,7 +146,28 @@ int player_choice(int x) {
     }
     return num;
 }
-
+/*********************************************************************
+ ** Function:         chk_has_visited
+ ** Description:      returns 1 if visited
+ ** Parameters:       takes dungeon 2d array, x and y 
+ ** Pre-Con:          NONE
+ ** Post-Con:         returns 1 if player has visited this location before.
+ *********************************************************************/
+int chk_has_visited(encounter** arr,int x,int y){
+            if (arr[x][y].hasVisted == 1) {
+                return 1;
+            }
+}
+/*********************************************************************
+ ** Function:         chk_enc_number
+ ** Description:      Returns encounter number
+ ** Parameters:       takes dungeon 2d array, x and y
+ ** Pre-Con:          NONE
+ ** Post-Con:         returns encounter number of grid location
+ *********************************************************************/
+int chk_enc_number(encounter** arr, int x, int y) {
+                return arr[x][y].enc;
+}
 
 /*********************************************************************
  ** Function:         print_game
@@ -219,7 +240,7 @@ void display_title() {
     printf(" `8b8' `8d8'  YP   YP YP  YP  YP 88      ~Y8888P' `8888Y'\n");
     printf("\n");
     printf("----------------------------------------------------------------\n");
-    printf("Created by: Austin Friedrich, Benjamin Cha, Jawad Alamgir\n");
+    printf("Created by: Austin Friedrich, Benjamin Cha, Jawad Alamgir , Tae Soo Kim\n");
     printf("----------------------------------------------------------------\n");
     printf("\n");
 }
@@ -277,7 +298,7 @@ void set_player_position(encounter** arr, int x_cord, int y_cord,int size) {
  ** Pre-Con:          player at old location
  ** Post-Con:         player at new location with updated node
  *********************************************************************/
-void player_move(encounter** arr,int size) {
+void player_move(encounter** arr,int size,int* x_pointer,int* y_pointer) {
     int player_x;
     int player_y;
     int i, j = 0;
@@ -303,6 +324,8 @@ void player_move(encounter** arr,int size) {
             else if(player_x !=0){
                 set_player_position(arr, player_x - 1, player_y, size);
                 choice_loop = 1;
+                *x_pointer = player_x - 1;
+                *y_pointer = player_y;
             }
         }
         // down
@@ -313,6 +336,8 @@ void player_move(encounter** arr,int size) {
             else if (player_x != size - 1) {
                 set_player_position(arr, player_x + 1, player_y, size);
                 choice_loop = 1;
+                *x_pointer = player_x + 1;
+                *y_pointer = player_y;
             }
         }
         // left
@@ -323,6 +348,8 @@ void player_move(encounter** arr,int size) {
             else if (player_y != 0) {
                 set_player_position(arr, player_x , player_y - 1, size);
                 choice_loop = 1;
+                *x_pointer = player_x;
+                *y_pointer = player_y - 1;
             }
         }
         // right
@@ -333,6 +360,8 @@ void player_move(encounter** arr,int size) {
             else if (player_y != size - 1) {
                 set_player_position(arr, player_x, player_y + 1, size);
                 choice_loop = 1;
+                *x_pointer = player_x;
+                *y_pointer = player_y + 1;
             }
         }
         arr[player_x][player_y].playerHere = 0;

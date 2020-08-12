@@ -34,15 +34,17 @@ struct Node
 
 
 void clear_screen();
-encounter** create_dungeon(int);
+encounter** create_dungeon(int,int);
 void free_game(encounter**, int);
 void print_game(encounter**, int, int);
 void display_title();
 int player_choice(int x);
-void player_move(encounter**, int);
+void player_move(encounter** , int , int* , int* );
 void set_player_position(encounter**, int, int, int); //game arr, x cord, y cord, size of arr
 void player_event(encounter**, int, int*, Node);
 void play_event(Node, int, int*, int);
+int chk_has_visited(encounter** arr, int x, int y);
+int chk_enc_number(encounter** arr, int x, int y);
 
 int call_event(int rand_num); //calls event
 int display_choices(Node* temp_node); // display choices for that event and takes input from user
