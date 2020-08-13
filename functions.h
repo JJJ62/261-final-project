@@ -38,11 +38,13 @@ encounter** create_dungeon(int x, int number_of_encounters);
 Node* create_events();
 void print_game(encounter**, int, int);
 void display_title();
-int player_choice(int x);
+int player_choice(int z, int x);
 void player_move(encounter** arr, int size, int* x_pointer, int* y_pointer);
 void set_player_position(encounter**, int, int, int); //game arr, x cord, y cord, size of arr
 void free_game(encounter** arr, int size, Node* head);
 void play_event(Node, int, int);
+int chk_has_visited(encounter** arr, int x, int y);
+int chk_enc_number(encounter** arr, int x, int y);
 
 int call_event(Node* event);
 int display_choices(Node* temp_node); // display choices for that event and takes input from user

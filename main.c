@@ -47,13 +47,13 @@ int main() {
 
 		//COMMENT ME OUT FOR FINAL GAME*********
 		printf("debug mode (1) on (2) off?\n");
-		debug_mode = player_choice(2);
+		debug_mode = player_choice(1,2);
 		printf("Debug mode status %d \n", debug_mode);
 		//COMMENT ME OUT FOR FINAL GAME*********
 
 		//get size of array
-		printf("Enter Size of dungeon 4-40\n");
-		game_size = player_choice(40); // allows choice 1-40
+		printf("Enter Size of dungeon 4-30\n");
+		game_size = player_choice(4,30); // allows choice 1-40
 		printf("Size of dungeon %d \n", game_size);
 
 		//generate randome starting postion in dungeon (range between 0 and gamesize)
@@ -61,8 +61,8 @@ int main() {
 		int	y_cord = rand() % game_size;
 
 
-		printf("Enter number of lives (5 is default 100 max)\n");
-		player_life = player_choice(100); // allows for choice 1-100
+		printf("Enter number of lives (5 is default 99 max)\n");
+		player_life = player_choice(5,99); // allows for choice 1-100
 		printf("Number of lives %d \n", player_life);
 
 		// Create game board
@@ -111,6 +111,8 @@ int main() {
 				printf("Reached the room. Won the game!\n");
 				break;
 			}
+
+			sleep(3);
 			clear_screen();
 
 

@@ -93,7 +93,7 @@ encounter** create_dungeon(int x, int number_of_encounters) {
  ** Post-Con:         returns the number used by user that is valid
  *********************************************************************/
 
-int player_choice(int x) {
+int player_choice(int z, int x) {
 
     char userInput[64];
     int num = 0;
@@ -107,7 +107,7 @@ int player_choice(int x) {
         flag = 0;
         num = 0;
 
-        printf("\n\n Please enter a number 1 to %d\n\n", x);
+        printf("\n\nPlease enter a number %d to %d\n\n", z , x);
         fgets(userInput, 63, stdin);
         length = strlen(userInput);
 
@@ -136,8 +136,9 @@ int player_choice(int x) {
             continue;
         }
 
-        if (num < 1 || num > x) {
+        if (num < z || num > x) {
             printf("\nInvalid range\n");
+            num = 0;
             continue;
         }
 
@@ -324,7 +325,7 @@ void player_move(encounter** arr, int size, int* x_pointer, int* y_pointer) {
     int choice_loop = 0;
     while (choice_loop == 0) {
         printf("\n(1 -- Up) (2 -- Down) (3 -- Left) (4 -- Right)\n");
-        int choice = player_choice(4);
+        int choice = player_choice(1,4);
 
         // UP
         if (choice == 1) {
@@ -795,7 +796,7 @@ int display_choices(Node* temp_node) {
                     flag = 1;
                 }
                 else {
-                    printf("Matching word %d\n", i);
+                    printf("\n");
                     return i;
 
                 }
