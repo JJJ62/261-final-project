@@ -1,6 +1,6 @@
 /***********************************************************
 * Author: Austin Friedrich, Benjamin Cha, Jawad Alamgir , Tae, Soo KiM
-* Email: Friedrau@oregonstate.edu
+* Email: alamgirj@oregonstate.edu, jalamgir.62@gmail.com
 * Date Created:8/5/2020
 * Filename: main.c
 *
